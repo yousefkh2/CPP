@@ -1,8 +1,7 @@
-
 #pragma once
 
-
 #include <iostream>
+#include <iomanip>
 #include "Contact.hpp"
 
 
@@ -13,17 +12,14 @@ class PhoneBook {
 
 	public:
 	PhoneBook() {
-		// contacts[8] = {0};
 		currentIndex = 0;
 	}
-	~PhoneBook();
 
 	void addContact(const std::string &name, const std::string &phoneNumber,const std::string &email) {
 		contacts[currentIndex].setName(name);
 		contacts[currentIndex].setPhoneNumber(phoneNumber);
 		contacts[currentIndex].setEmail(email);
 		currentIndex = (currentIndex + 1) % 8;
-
 		std::cout << "Contact added successfully." << std::endl;
 	}
 	void searchContact(const std::string &name) const {
@@ -45,16 +41,25 @@ class PhoneBook {
 		}
 	}
 	
-	void displayContacts() const;
-/*	shouldn't searching a contact be ennough? why would we need this. let's see. */
-	void exit() const
-	{
-		/*how are you going to exit? */
+	void displayContacts() const {
+		std::cout << "+-----------+-----------+-----------+-----------+" << std::endl;
+		std::cout << "| Index     | Name      | Phone     | Email     |" << std::endl;
+		std::cout << "+-----------+-----------+-----------+-----------+" << std::endl;
+		bool hasContacts = false;
+
+		for (int i = 0;  i < 8; i++) {
+			if (!contacts[i].isEmpty()) {
+				hasContacts = true;
+				std::cout << "| " << std::setw(10) << i << "|";
+				std::cout << " " << std::setw(10) << contacts[i].getName() << "|";
+				std::cout << " " << std::setw(10) << contacts[i].getPhoneNumber() << "|";
+				std::cout << " " << std::setw(10) << contacts[i].getEmail() << "|" << std::endl;
+			}
+		}
+		std::cout << "+-----------+-----------+-----------+-----------+" << std::endl;
+		if (!hasContacts)
+		{
+			std::cout << "No contacts found." << std::endl;
+		}
 	}
-
 };
-
-
-
-#endif
-
