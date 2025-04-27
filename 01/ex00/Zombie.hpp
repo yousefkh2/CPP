@@ -11,10 +11,7 @@ class Zombie
 		Zombie();
 		Zombie(std::string name); // TODO: did they ask for this parameterized constructor?
 		~Zombie();
-		void announce() const
-		{
-			std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-		}
+		void announce() const;
 };
 
 Zombie* newZombie(std::string name);

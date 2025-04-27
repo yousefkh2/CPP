@@ -3,23 +3,25 @@
 
 class Contact {
 	private:
-		std::string name;
+		std::string firstName;
+		std::string lastName;
+		std::string nickname;
 		std::string phoneNumber;
-		std::string email;
-	
+		std::string darkestSecret;
 	public:
-		Contact() : name(""), phoneNumber(""), email("") {
-		}
+		Contact();
 		//GETTERS
-		std::string getName() const { return name; }
-		std::string getPhoneNumber() const { return phoneNumber; }
-		std::string getEmail() const { return email; }
-		//SETTERS
-		void setName(const std::string &name) { this->name = name; }
-		void setPhoneNumber(const std::string &phoneNumber) { this->phoneNumber = phoneNumber; }
-		void setEmail(const std::string &email) { this->email = email; }
-		//METHODS
-		bool isEmpty() const {
-			return name.empty() || phoneNumber.empty() || email.empty();
-		}
+		void setFirstName(const std::string& fn);
+		void setLastName(const std::string& ln);
+		void setNickname(const std::string& nn);
+		void setPhoneNumber(const std::string& pn);
+		void setDarkestSecret(const std::string& ds);
+		std::string getFirstName() const;
+		std::string getLastName() const;
+		std::string getNickname() const;
+		std::string getPhoneNumber() const;
+		std::string getDarkestSecret() const;
 };
+
+
+

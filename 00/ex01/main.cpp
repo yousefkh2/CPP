@@ -1,33 +1,59 @@
+
+#include <iostream>
+#include <string>
+#include <cstdlib>
 #include "PhoneBook.hpp"
+#include "Contact.hpp"
+
+static std::string promptField(const std::string& fieldName) {
+    std::string input;
+    do {
+        std::cout << fieldName << ": ";
+        if (!std::getline(std::cin, input)) {
+            if (std::cin.eof())
+                exit(0);
+            continue;
+        }
+    } while (input.empty());
+    return input;
+}
 
 int main() {
-	PhoneBook phoneBook;
-	std::string command;
+    PhoneBook phoneBook;
+    std::string command;
 
-	//i assume i will take input from the user right away, so why not just use cin?
-	while (true)
-	{
-		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-		std::cin >> command;
+    while (true) {
+        std::cout << "Enter command (ADD, SEARCH, EXIT): ";
+        if (!std::getline(std::cin, command))
+            break;
 
-		if (command == "ADD")
-		{
-			// get contact details
-			// call phonebook.addContact()
-		}
-		else if (command == "SEARCH")
-		{
-			// display contacts
-			// get index
-			// display specific contact
-		}
-		else if (command == "EXIT")
-		{
-			break;
-		}
-		else {
-			std::cout << "Invalid command. Try again." << std::endl;
-		}
-	}
-	return 0;
+        if (command == "ADD") {
+            Contact c;
+            c.setFirstName(promptField("First Name"));
+            c.setLastName(promptField("Last Name"));
+            c.setNickname(promptField("Nickname"));
+            c.setPhoneNumber(promptField("Phone Number"));
+            c.setDarkestSecret(promptField("Darkest Secret"));
+            phoneBook.addContact(c);
+        } else if (command == "SEARCH") {
+            if (phoneBook.getCount() == 0) {
+                std::cout << "PhoneBook is empty." << std::endl;
+                continue;
+            }
+            phoneBook.displayContacts();
+            std::cout << "Enter index to display: ";
+            std::string idxStr;
+            std::getline(std::cin, idxStr);
+            try {
+                int idx = std::stoi(idxStr);
+                phoneBook.displayContact(idx);
+            } catch (...) {
+                std::cout << "Invalid input." << std::endl;
+            }
+        } else if (command == "EXIT") {
+            break;
+        }
+    }
+
+    return 0;
 }
