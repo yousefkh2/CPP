@@ -7,15 +7,10 @@
 
 static std::string promptField(const std::string& fieldName) {
     std::string input;
-    do {
-        std::cout << fieldName << ": ";
-        if (!std::getline(std::cin, input)) {
-            if (std::cin.eof())
-                exit(0);
-            continue;
-        }
-    } while (input.empty());
-    return input;
+    // prompt once before entering the loop
+	std::cout << fieldName << ": " << std::endl;
+	std::getline(std::cin, input);
+	return input;
 }
 
 int main() {
@@ -23,7 +18,7 @@ int main() {
     std::string command;
 
     while (true) {
-        std::cout << "Enter command (ADD, SEARCH, EXIT): ";
+        std::cout << "Enter command (ADD, SEARCH, EXIT):\n";
         if (!std::getline(std::cin, command))
             break;
 
@@ -53,6 +48,10 @@ int main() {
         } else if (command == "EXIT") {
             break;
         }
+		else {
+			std::cout << "Invalid command. Please enter ADD, SEARCH, or EXIT." << std::endl;
+		}
+
     }
 
     return 0;
