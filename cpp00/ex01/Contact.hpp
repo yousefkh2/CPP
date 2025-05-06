@@ -10,7 +10,6 @@ class Contact {
 		std::string darkestSecret;
 	public:
 		Contact();
-		//GETTERS
 		void setFirstName(const std::string& fn);
 		void setLastName(const std::string& ln);
 		void setNickname(const std::string& nn);

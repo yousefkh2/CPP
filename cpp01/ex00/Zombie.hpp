@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <string>
 
 
@@ -9,7 +8,7 @@ class Zombie
 		std::string name;
 	public:
 		Zombie();
-		Zombie(std::string name); // TODO: did they ask for this parameterized constructor?
+		Zombie(std::string name); // TODO: did they ask for this parameterized constructor? and if there's a reason, then why have the orignal default constructor? 
 		~Zombie();
 		void announce() const;
 };

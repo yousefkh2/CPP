@@ -1,16 +1,26 @@
 .PHONY: all clean fclean re
+NAME     := phonebook
+CXX      := g++
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -pedantic
 
-NAME = phonebook
+SRC     := main.cpp Contact.cpp PhoneBook.cpp
+OBJ     := $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): main.cpp Contact.cpp PhoneBook.cpp
-	g++ -Wall -Wextra -Werror -std=c++98 -o $(NAME) main.cpp Contact.cpp PhoneBook.cpp
+$(NAME): $(OBJ)
+	$(CXX) $(CFLAGS) $(OBJ) -o $@
+
+%.o: %.cpp
+	$(CXX) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+run: $(NAME)
+	./$(NAME)

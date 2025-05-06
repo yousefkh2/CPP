@@ -1,18 +1,19 @@
-NAME    = megaphone
 
-CC      = g++
-CFLAGS  = -Wall -Wextra -Werror -pedantic -std=c++17
+CXX       := g++
+CXXFLAGS  := -Wall -Wextra -Werror -pedantic -std=c++17
 
-SRC     = megaphone.cpp
-OBJ     = $(SRC:.cpp=.o)
+NAME      := megaphone
+
+SRC       := megaphone.cpp
+OBJ       := $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $@
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)

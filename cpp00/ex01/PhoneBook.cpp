@@ -18,12 +18,11 @@ int PhoneBook::getCount() const {
 }
 
 static std::string formatField(const std::string& str) {
-    if (str.length() > 10)
-        return str.substr(0, 9) + ".";
-    return std::string(10 - str.length(), ' ') + str;
+    std::string trimmed = (str.length() > 10) ? str.substr(0, 9) + "." : str;
+    return std::string(10 - trimmed.length(), ' ') + trimmed;
 }
 
-void PhoneBook::displayContacts() const {
+void PhoneBook::displayContacts() const { // TODO: check the left-alignment if it's as per the requirements
     std::cout << std::setw(10) << "Index" << "|"
               << std::setw(10) << "First Name" << "|"
               << std::setw(10) << "Last Name" << "|"
