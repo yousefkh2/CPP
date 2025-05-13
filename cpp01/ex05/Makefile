@@ -1,9 +1,9 @@
-CXX     = c++
-CXXFLAGS= -Wall -Wextra -Werror -std=c++17
+CXX      = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++17
 
-NAME    = replace
-SRCS    = main.cpp
-OBJS    = $(SRCS:.cpp=.o)
+NAME     = harl
+SRCS     = main.cpp Harl.cpp
+OBJS     = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
