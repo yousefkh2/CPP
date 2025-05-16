@@ -1,0 +1,5 @@
+This is a test file.
+It contains several hello strings.
+hello at the beginning of a line
+at the end of a line, hello
+hellohello combined

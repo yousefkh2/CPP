@@ -1,0 +1,5 @@
+This is the first line of the file.
+The second line contains the word line.
+line is present in the third line as well.
+Sometimes line appears multiple times in a single line, like this line.
+The last line of the file.

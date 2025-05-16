@@ -2,23 +2,31 @@ CXX      = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17
 
 NAME     = harl
-SRCS     = main.cpp Harl.cpp
-OBJS     = $(SRCS:.cpp=.o)
+TEST     = harl_test
+SRC      = main.cpp Harl.cpp
+TEST_SRC = tests.cpp Harl.cpp
+OBJ      = $(SRC:.cpp=.o)
+TEST_OBJ = $(TEST_SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
+
+$(TEST): $(TEST_OBJ)
+	$(CXX) $(CXXFLAGS) $(TEST_OBJ) -o $(TEST)
+
+test: $(TEST)
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJ) $(TEST_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(TEST)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test

@@ -41,7 +41,6 @@ void Harl::complain(std::string level) {
       return;
     }
   }
-  // If level not found, optionally output nothing or notify
   std::cerr << "[UNKNOWN] Level '" << level << "' is not recognized."
             << std::endl;
 }
