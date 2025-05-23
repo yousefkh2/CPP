@@ -13,4 +13,7 @@ int main() {
 	std::cout << "The value of the string variable: " << str << std::endl;
 	std::cout << "The value pointed to by stringPTR: " << *stringPTR << std::endl;
 	std::cout << "The value pointed to by stringREF: " << stringREF << std::endl;
+
+	stringREF = "new string";
+	std::cout << str << std::endl;
 }

@@ -1,29 +1,46 @@
 #include "Fixed.hpp"
-#include <iostream>
+#include <cmath>
 
-Fixed::Fixed() : rawBits(0) {
+Fixed::Fixed() : _raw(0) {
   std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &other) : rawBits(other.rawBits) {
-  std::cout << "Copy constructor called" << std::endl;
+Fixed::Fixed(int const value) : _raw(value << _fractBits) {
+  std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed &Fixed::operator=(const Fixed &other) {
+Fixed::Fixed(float const value) : _raw(roundf(value * (1 << _fractBits))) {
+  std::cout << "Float constructor called" << std::endl;
+}
+
+Fixed::Fixed(const Fixed &other) { //should this have been in the member initialization list? 
+  std::cout << "Copy constructor called" << std::endl;
+  *this = other;
+}
+
+Fixed &Fixed::operator=(const Fixed &rhs) {
   std::cout << "Copy assignment operator called" << std::endl;
-  if (this != &other) // don’t do anything if i'm assigning to myself
-    rawBits = other.rawBits;
+  if (this != &rhs)
+    this->_raw = rhs.getRawBits();
   return *this;
 }
 
 Fixed::~Fixed() { std::cout << "Destructor called" << std::endl; }
 
-int Fixed::getRawBits() const {
+int Fixed::getRawBits(void) const {
   std::cout << "getRawBits member function called" << std::endl;
-  return rawBits;
+  return _raw;
 }
 
-void Fixed::setRawBits(int raw) {
-  std::cout << "setRawBits member function called" << std::endl;
-  rawBits = raw;
+void Fixed::setRawBits(int const raw) { _raw = raw; }
+
+float Fixed::toFloat(void) const {
+  return static_cast<float>(_raw) / (1 << _fractBits);
+}
+
+int Fixed::toInt(void) const { return _raw >> _fractBits; }
+
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed) {
+  os << fixed.toFloat();
+  return os;
 }

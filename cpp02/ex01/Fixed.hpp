@@ -1,16 +1,24 @@
 #pragma once
 
+#include <iostream>
+
 class Fixed {
 private:
-  int rawBits;
-  static const int fractionalBits = 8;
+  int _raw;
+  static const int _fractBits = 8;
 
 public:
-  Fixed();
-  Fixed(const Fixed &other);
-  Fixed &operator=(const Fixed &other);
-  ~Fixed();
+  Fixed();                            // default
+  Fixed(int const value);             // int constructor
+  Fixed(float const value);           // float constructor
+  Fixed(const Fixed &other);          // ccopy
+  Fixed &operator=(const Fixed &rhs); // assign
+  ~Fixed();                           // destructor
 
-  int getRawBits() const;
-  void setRawBits(int raw);
+  int getRawBits(void) const;
+  void setRawBits(int const raw);
+  float toFloat(void) const;
+  int toInt(void) const;
 };
+
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed);

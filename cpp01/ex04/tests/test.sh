@@ -52,7 +52,7 @@ run_test() {
     fi
     
     # Clean up the output file
-    rm -f "$filename.replace"
+    # rm -f "$filename.replace"
     echo ""
 }
 
