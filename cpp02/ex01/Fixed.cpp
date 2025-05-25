@@ -13,9 +13,9 @@ Fixed::Fixed(float const value) : _raw(roundf(value * (1 << _fractBits))) {
   std::cout << "Float constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &other) { //should this have been in the member initialization list? 
+Fixed::Fixed(const Fixed &other) {
   std::cout << "Copy constructor called" << std::endl;
-  *this = other;
+  _raw = other.getRawBits();
 }
 
 Fixed &Fixed::operator=(const Fixed &rhs) {

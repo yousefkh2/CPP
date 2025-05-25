@@ -9,7 +9,10 @@ Fixed::Fixed(const int value) : _raw(value << _fractBits) {}
 Fixed::Fixed(const float value)
     : _raw(static_cast<int>(roundf(value * (1 << _fractBits)))) {}
 
-Fixed::Fixed(const Fixed &other) { *this = other; }
+Fixed::Fixed(const Fixed &other) {
+  std::cout << "Copy constructor called" << std::endl;
+  _raw = other.getRawBits();
+}
 
 Fixed &Fixed::operator=(const Fixed &rhs) {
   if (this != &rhs)
