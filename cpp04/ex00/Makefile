@@ -11,7 +11,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
-%.o: %.cpp # .hpp files
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean:
