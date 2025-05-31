@@ -11,7 +11,7 @@ private:
 public:
   Brain();
   Brain(const Brain &other);
-  Brain &operator=(const Brain &); // this??
+  Brain &operator=(const Brain &);
   ~Brain();
 
   std::string getIdea(int idx) const;
