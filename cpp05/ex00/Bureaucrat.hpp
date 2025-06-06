@@ -14,22 +14,22 @@ public:
   ~Bureaucrat() = default;
 
   // getters
-  const std::string &getName() const noexcept;
-  int getGrade() const noexcept;
+  const std::string &getName() const;
+  int getGrade() const;
 
   // grade modifiers
   void incrementGrade(); // grade-- (higher rank)
   void decrementGrade(); // grade++ (lower rank)
 
   // exception classes
-  class GradeTooHighException : public std::exception {
+  class GradeTooHighException : public std::runtime_error {
   public:
-    const char *what() const noexcept override;
+	GradeTooHighException();
   };
 
-  class GradeTooLowException : public std::exception {
+  class GradeTooLowException : public std::runtime_error {
   public:
-    const char *what() const noexcept override;
+  GradeTooLowException();
   };
 
 private:

@@ -35,20 +35,6 @@ void Bureaucrat::decrementGrade() {
   ++_grade;
 }
 
-void Bureaucrat::signForm(AForm& form) const
-{
-    try
-    {
-        form.beSigned(*this);
-        std::cout << _name << " signed " << form.getName() << std::endl;
-    }
-    catch (const std::exception& e)
-    {
-        std::cout << _name << " couldn’t sign " << form.getName()
-                  << " because " << e.what() << std::endl;
-    }
-}
-
 //tries to execute form and prints success or failure accordingly
 void Bureaucrat::executeForm(const AForm& form) const
 {
@@ -64,13 +50,26 @@ void Bureaucrat::executeForm(const AForm& form) const
 	}
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const noexcept {
-  return "GradeTooHighException: grade cannot be higher than 1";
+void Bureaucrat::signForm(AForm& form) const
+{
+    try
+    {
+        form.beSigned(*this);
+        std::cout << _name << " signed " << form.getName() << std::endl;
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << _name << " couldn’t sign " << form.getName()
+                  << " because " << e.what() << std::endl;
+    }
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const noexcept {
-  return "GradeTooLowException: grade cannot be lower than 150";
-}
+Bureaucrat::GradeTooHighException::GradeTooHighException()
+	: std::runtime_error("GradeTooHighException: grade cannot be higher than 1") {}
+
+Bureaucrat::GradeTooLowException::GradeTooLowException()
+    : std::runtime_error("GradeTooLowException: grade cannot be lower than 150") {}
+
 
 // prints name and grade
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &b) {

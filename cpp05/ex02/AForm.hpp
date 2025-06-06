@@ -27,25 +27,24 @@ public:
   void beSigned(const Bureaucrat &b);
 
   // will check signed + executor's grade, then calls exectute Action()
-  void execute(const Bureaucrat& executor) const;
+  void execute(const Bureaucrat &executor) const;
 
   virtual void executeAction() const = 0;
 
   // exception classes
-  class GradeTooHighException : public std::exception {
+  class GradeTooHighException : public std::runtime_error {
   public:
-    const char *what() const noexcept override;
+    GradeTooHighException();
   };
 
-  class GradeTooLowException : public std::exception {
+  class GradeTooLowException : public std::runtime_error {
   public:
-    const char *what() const noexcept override;
+    GradeTooLowException();
   };
 
-  class FormNotSignedException : public std::exception
-  {
-	public:
-		const char* what() const noexcept override;
+  class FormNotSignedException : public std::runtime_error {
+  public:
+    FormNotSignedException();
   };
 
 private:

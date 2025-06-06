@@ -1,5 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include <stdexcept>
 
 AForm::AForm()
     : _name("Default"), _isSigned(false), _gradeToSign(_lowest),
@@ -49,18 +50,18 @@ void AForm::execute(const Bureaucrat &executor) const {
 }
 
 // exception message
-const char *AForm::GradeTooHighException::what() const noexcept {
-  return "AForm::GradeTooHighException: grade requirement cannot be < 1";
-}
+AForm::GradeTooHighException::GradeTooHighException()
+    : std::runtime_error(
+          "AForm::GradeTooHighException: grade requirement cannot be < 1") {};
 
-const char *AForm::GradeTooLowException::what() const noexcept {
-  return "AForm::GradeTooLowException: grade requirement cannot be > 150 or "
-         "bureaucrat's grade too low";
-}
+AForm::GradeTooLowException::GradeTooLowException()
+    : std::runtime_error(
+          "AForm::GradeTooLowException: grade requirement cannot be > 150 or "
+          "bureaucrat's grade too low") {};
 
-const char *AForm::FormNotSignedException::what() const noexcept {
-  return "AForm::FormNotSignedException: form is not signed yet";
-}
+AForm::FormNotSignedException::FormNotSignedException()
+    : std::runtime_error(
+          "AForm::FormNotSignedException: form is not signed yet") {};
 
 std::ostream &operator<<(std::ostream &os, const AForm &f) {
   os << f.getName() << ", signed: " << (f.getIsSigned() ? "true" : "false")

@@ -14,15 +14,12 @@ Form::Form(const std::string &name, int gradeToSign, int gradeToExec)
     throw GradeTooLowException();
 }
 
-
-Form& Form::operator=(const Form& other)
-{
-    if (this != &other)
-    {
-        _isSigned = other._isSigned;
-        //other attributes are const --> no assignment
-    }
-    return *this;
+Form &Form::operator=(const Form &other) {
+  if (this != &other) {
+    _isSigned = other._isSigned;
+    // other attributes are const --> no assignment
+  }
+  return *this;
 }
 
 // getters
@@ -44,14 +41,14 @@ void Form::beSigned(const Bureaucrat &b) {
 }
 
 // exception message
-const char *Form::GradeTooHighException::what() const noexcept {
-  return "Form::GradeTooHighException: grade requirement cannot be < 1";
-}
+Form::GradeTooHighException::GradeTooHighException()
+    : std::runtime_error(
+          "Form::GradeTooHighException: grade requirement cannot be < 1") {};
 
-const char *Form::GradeTooLowException::what() const noexcept {
-  return "Form::GradeTooLowException: grade requirement cannot be > 150 or "
-         "bureaucrat's grade too low";
-}
+Form::GradeTooLowException::GradeTooLowException()
+    : std::runtime_error(
+          "Form::GradeTooLowException: grade requirement cannot be > 150 or "
+          "bureaucrat's grade too low") {};
 
 std::ostream &operator<<(std::ostream &os, const Form &f) {
   os << f.getName() << ", signed: " << (f.getIsSigned() ? "true" : "false")

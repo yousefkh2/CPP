@@ -10,7 +10,7 @@ class Bureaucrat;
 class Form {
 public:
   // Orthodox C. F.
-  Form(); // default ctor
+  Form();
   Form(const std::string &name, int gradeToSign, int gradeToExec);
   Form(const Form &other) = default;
   Form &operator=(const Form &other);
@@ -26,14 +26,14 @@ public:
   void beSigned(const Bureaucrat &b);
 
   // exception classes
-  class GradeTooHighException : public std::exception {
+  class GradeTooHighException : public std::runtime_error {
   public:
-    const char *what() const noexcept override;
+    GradeTooHighException();
   };
 
-  class GradeTooLowException : public std::exception {
+  class GradeTooLowException : public std::runtime_error {
   public:
-    const char *what() const noexcept override;
+    GradeTooLowException();
   };
 
 private:

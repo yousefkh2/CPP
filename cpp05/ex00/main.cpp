@@ -11,18 +11,18 @@ int main() {
 
   // 2. test creation with too high grade (0)
   try {
-    Bureaucrat tooHigh("Inshirah", 0);
+    Bureaucrat tooHigh("Zahi Hawas", 0);
     std::cout << tooHigh << std::endl;
   } catch (const std::exception &e) {
-    std::cerr << "Exception on creating Inshirah: " << e.what() << std::endl;
+    std::cerr << "Exception on creating Zahi Hawas: " << e.what() << std::endl;
   }
 
   // 3. test creation with too low grade (151)
   try {
-    Bureaucrat tooLow("Mus3ad", 151);
+    Bureaucrat tooLow("Ostaz Ragab", 151);
     std::cout << tooLow << std::endl;
   } catch (const std::exception &e) {
-    std::cerr << "Exception on creating Mus3ad: " << e.what() << std::endl;
+    std::cerr << "Exception on creating Ostaz Ragab: " << e.what() << std::endl;
   }
 
   // 4. test increment/decrement around boundaries

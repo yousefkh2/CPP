@@ -28,20 +28,18 @@ public:
 
 
   void executeForm(const AForm& form) const;
-
-  // try to sign a Form
   void signForm(AForm &f) const;
 
   // exception classes
-  class GradeTooHighException : public std::exception {
-  public:
-    const char *what() const noexcept override;
-  };
-
-  class GradeTooLowException : public std::exception {
-  public:
-    const char *what() const noexcept override;
-  };
+  class GradeTooHighException : public std::runtime_error {
+	public:
+	  GradeTooHighException();
+	};
+  
+	class GradeTooLowException : public std::runtime_error {
+	public:
+	  GradeTooLowException();
+	};
 
 private:
   const std::string _name;
