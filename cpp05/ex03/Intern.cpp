@@ -1,8 +1,39 @@
 #include "Intern.hpp"
-#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include <iostream>
 
-Intern::Intern() {}
+// i think we will need too bureaucrat to import, but which bureaucrat. i dunno
 
-// executeAction
-void Intern::makeForm() {
+static AForm *createShrub(const std::string &t) {
+  return new ShrubberyCreationForm(t);
+}
+static AForm *createRobo(const std::string &t) {
+  return new RobotomyRequestForm(t);
+}
+static AForm *createPres(const std::string &t) {
+  return new PresidentialPardonForm(t);
+}
+
+struct FormType {
+  const char *name;
+  AForm *(*maker)(const std::string &);
+};
+
+AForm *Intern::makeForm(const std::string &formName,
+                        const std::string &target) const {
+  static const FormType table[] = {{"shrubbery creation", createShrub},
+                                   {"robotomy request", createRobo},
+                                   {"presidential pardon", createPres}};
+  for (auto &entry : table) {
+    if (formName == entry.name) {
+      AForm *form = entry.maker(target);
+      std::cout << "Intern creates " << formName << std::endl;
+      return form;
+    }
+  }
+
+  std::cout << "Intern could not create " << formName << std::endl;
+  return nullptr;
 };

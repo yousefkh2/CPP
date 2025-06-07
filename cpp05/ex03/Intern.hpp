@@ -1,15 +1,20 @@
 #pragma once
 
+#include <string>
+#include "AForm.hpp"
 
 
 class Intern
 {
 	public:
-	Intern();
+	Intern() = default;
 	Intern(const Intern& other) = default;
 	Intern& operator=(const Intern& other) = default;
 	~Intern() = default;
 
-	void makeForm() const;
+	AForm* makeForm(const std::string& formName, const std::string& formTarget) const;
 
 };
+
+/*
+takes two strings. */
