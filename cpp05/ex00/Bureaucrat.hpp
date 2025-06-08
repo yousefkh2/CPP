@@ -24,12 +24,12 @@ public:
   // exception classes
   class GradeTooHighException : public std::runtime_error {
   public:
-	GradeTooHighException();
+    GradeTooHighException();
   };
 
   class GradeTooLowException : public std::runtime_error {
   public:
-  GradeTooLowException();
+    GradeTooLowException();
   };
 
 private:

@@ -3,9 +3,9 @@
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include <iostream>
+#include <string>
 
-// i think we will need too bureaucrat to import, but which bureaucrat. i dunno
-
+// helper creators
 static AForm *createShrub(const std::string &t) {
   return new ShrubberyCreationForm(t);
 }
@@ -17,7 +17,7 @@ static AForm *createPres(const std::string &t) {
 }
 
 struct FormType {
-  const char *name;
+  std::string name;
   AForm *(*maker)(const std::string &);
 };
 
@@ -26,7 +26,8 @@ AForm *Intern::makeForm(const std::string &formName,
   static const FormType table[] = {{"shrubbery creation", createShrub},
                                    {"robotomy request", createRobo},
                                    {"presidential pardon", createPres}};
-  for (auto &entry : table) {
+
+  for (const auto &entry : table) {
     if (formName == entry.name) {
       AForm *form = entry.maker(target);
       std::cout << "Intern creates " << formName << std::endl;
@@ -36,4 +37,4 @@ AForm *Intern::makeForm(const std::string &formName,
 
   std::cout << "Intern could not create " << formName << std::endl;
   return nullptr;
-};
+}
