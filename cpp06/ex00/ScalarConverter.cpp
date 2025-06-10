@@ -1,7 +1,6 @@
 #include "ScalarConverter.hpp"
 #include <cctype>
 #include <cerrno>
-#include <climits>
 #include <cmath>
 #include <iomanip>
 #include <ios>
@@ -18,9 +17,8 @@ static bool isPseudoDouble(const std::string &s) {
 }
 
 void ScalarConverter::convert(const std::string &literal) {
-  // TODO: Implement the conversion logic here
-  // This method should:
-  // 1. Detect the type of the input literal
+
+  // CHAR SECTION
   if (literal.size() == 3 && literal.front() == '\'' &&
       literal.back() == '\'') {
     char c = literal[1]; // we already know it's a displayable char (from the
@@ -94,7 +92,6 @@ void ScalarConverter::convert(const std::string &literal) {
       double asDouble = static_cast<double>(fVal);
 
       if (std::isnan(fVal) || std::isinf(fVal)) {
-        // For NaN or inf, char/int are “impossible”
         std::cout << "char: impossible\n";
         std::cout << "int: impossible\n";
       } else {
@@ -112,53 +109,43 @@ void ScalarConverter::convert(const std::string &literal) {
     }
   }
   // DOUBLE SECTION
-  if (isPseudoDouble(literal) || literal.find('.') != std::string::npos)
-    {
-        // Handle pseudo‐double:
-        if (isPseudoDouble(literal))
-        {
-            std::cout << "char: impossible\n";
-            std::cout << "int: impossible\n";
-            std::cout << "float: "  << literal << "f\n";
-            std::cout << "double: " << literal << "\n";
-            return;
-        }
-
-        // Parse as double:
-        errno = 0;
-        char* endptrD = nullptr;
-        double dVal = std::strtod(literal.c_str(), &endptrD);
-        if (errno == 0 && endptrD != literal.c_str() && *endptrD == '\0')
-        {
-            char  asChar   = static_cast<char>(dVal);
-            int   asInt    = static_cast<int>(dVal);
-            float asFloat  = static_cast<float>(dVal);
-
-            if (std::isnan(dVal) || std::isinf(dVal)) {
-                std::cout << "char: impossible\n";
-                std::cout << "int: impossible\n";
-            }
-            else {
-                if (std::isprint(asChar))
-                    std::cout << "char: '" << asChar << "'\n";
-                else
-                    std::cout << "char: Non displayable\n";
-                std::cout << "int: " << asInt << "\n";
-            }
-
-            std::cout << std::fixed << std::setprecision(1);
-            std::cout << "float: "  << asFloat  << "f\n";
-            std::cout << "double: " << dVal     << "\n";
-            return;
-        }
+  if (isPseudoDouble(literal) || literal.find('.') != std::string::npos) {
+    if (isPseudoDouble(literal)) {
+      std::cout << "char: impossible\n";
+      std::cout << "int: impossible\n";
+      std::cout << "float: " << literal << "f\n";
+      std::cout << "double: " << literal << "\n";
+      return;
     }
 
-  // 2. Convert it to char, int, float, and double
-  // 3. Handle special cases like pseudo-literals (-inff, +inff, nanf, -inf,
-  // +inf, nan)
-  // 4. Handle non-displayable characters for char conversion
-  // 5. Print appropriate error messages for impossible conversions
+    errno = 0;
+    char *endptrD = nullptr;
+    double dVal = std::strtod(literal.c_str(), &endptrD);
+    if (errno == 0 && endptrD != literal.c_str() && *endptrD == '\0') {
+      char asChar = static_cast<char>(dVal);
+      int asInt = static_cast<int>(dVal);
+      float asFloat = static_cast<float>(dVal);
 
+      if (std::isnan(dVal) || std::isinf(dVal) || dVal < static_cast<double>(std::numeric_limits<int>::min()) ||
+	  dVal > static_cast<double>(std::numeric_limits<int>::max()) ) {
+        std::cout << "char: impossible\n";
+        std::cout << "int: impossible\n";
+      } else {
+        if (std::isprint(asChar))
+          std::cout << "char: '" << asChar << "'\n";
+        else
+          std::cout << "char: Non displayable\n";
+        std::cout << "int: " << asInt << "\n";
+      }
+
+      std::cout << std::fixed << std::setprecision(1);
+      std::cout << "float: " << asFloat << "f\n";
+      std::cout << "double: " << dVal << "\n";
+      return;
+    }
+  }
+
+  
   std::cout << "char: " << std::endl;
   std::cout << "int: " << std::endl;
   std::cout << "float: " << std::endl;

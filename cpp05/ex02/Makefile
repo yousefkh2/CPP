@@ -24,7 +24,7 @@ clean:
 	/bin/rm -f $(OBJS)
 
 fclean: clean
-	/bin/rm -f $(NAME) home_shrubbery
+	/bin/rm -f $(NAME)
 
 re: fclean all
 
