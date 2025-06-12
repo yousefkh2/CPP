@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-template <typename T>
+template <typename T> 
 class Array {
 private:
   T *_elements;

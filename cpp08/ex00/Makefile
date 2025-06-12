@@ -1,4 +1,4 @@
-NAME = main
+NAME = easyfind
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17
 
@@ -10,7 +10,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
-%.o: %.cpp Array.hpp
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean:
